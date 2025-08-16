@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-  import { 
-  Eye, 
-  Heart, 
-  Calendar, 
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Eye,
+  Heart,
+  Calendar,
   FileText,
   Search,
   User,
@@ -17,20 +17,16 @@ import { useNavigate } from 'react-router-dom';
   Sparkles,
   ChevronRight,
   Play,
-  Mail,
   Phone,
   MapPin,
-  Twitter,
-  Facebook,
-  Instagram,
   Linkedin,
-  Github
-} from 'lucide-react';
-import { Navbar } from '../components/UI/Navbar';
-import { Button } from '../components/UI/Button';
-import { useAuth } from '../hooks/useAuth';
-import { apiService } from '../services/api';
-import type { BlogType } from '../types';
+  Github,
+} from "lucide-react";
+import { Navbar } from "../components/UI/Navbar";
+import { Button } from "../components/UI/Button";
+import { useAuth } from "../hooks/useAuth";
+import { apiService } from "../services/api";
+import type { BlogType } from "../types";
 
 export const PublicBlogListPage: React.FC = () => {
   const { user, logout } = useAuth();
@@ -43,7 +39,7 @@ export const PublicBlogListPage: React.FC = () => {
     totalBlogs: 500,
     totalAuthors: 150,
     totalViews: 25000,
-    totalLikes: 8500
+    totalLikes: 8500,
   };
 
   useEffect(() => {
@@ -54,18 +50,18 @@ export const PublicBlogListPage: React.FC = () => {
     try {
       setLoading(true);
       setError(null);
-      
+
       // Load different sections of blogs
       const [featuredResponse, recentResponse] = await Promise.all([
         apiService.getAllPublicBlogs({ page: 1, limit: 3 }), // Featured blogs
         apiService.getAllPublicBlogs({ page: 1, limit: 6 }), // Recent blogs
       ]);
-      
+
       setFeaturedBlogs(featuredResponse.blogs.slice(0, 3));
       setRecentBlogs(recentResponse.blogs);
     } catch (error) {
-      console.error('Failed to load home page data:', error);
-      setError('Failed to load content');
+      console.error("Failed to load home page data:", error);
+      setError("Failed to load content");
     } finally {
       setLoading(false);
     }
@@ -74,9 +70,9 @@ export const PublicBlogListPage: React.FC = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate('/login');
+      navigate("/login");
     } catch (error) {
-      console.error('Failed to logout:', error);
+      console.error("Failed to logout:", error);
     }
   };
 
@@ -85,18 +81,18 @@ export const PublicBlogListPage: React.FC = () => {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     });
   };
 
   const formatNumber = (num: number) => {
     if (num >= 1000000) {
-      return (num / 1000000).toFixed(1) + 'M';
+      return (num / 1000000).toFixed(1) + "M";
     } else if (num >= 1000) {
-      return (num / 1000).toFixed(1) + 'K';
+      return (num / 1000).toFixed(1) + "K";
     }
     return num.toString();
   };
@@ -110,19 +106,21 @@ export const PublicBlogListPage: React.FC = () => {
         <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute bottom-1/4 left-1/2 w-80 h-80 bg-pink-500/25 rounded-full blur-3xl animate-pulse delay-2000"></div>
       </div>
-      
+
       {/* Glassmorphism overlay */}
       <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
-      
+
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16">
         <div className="text-center">
           {/* Animated badge */}
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-8 animate-fade-in">
             <Sparkles className="w-4 h-4 mr-2 text-yellow-400" />
-            <span className="text-sm font-medium">Welcome to the Future of Blogging</span>
+            <span className="text-sm font-medium">
+              Welcome to the Future of Blogging
+            </span>
           </div>
-          
+
           {/* Main heading with gradient text */}
           <h1 className="text-6xl md:text-8xl font-black mb-8 leading-tight animate-slide-up">
             <span className="block text-white">Discover</span>
@@ -130,17 +128,26 @@ export const PublicBlogListPage: React.FC = () => {
               Amazing Stories
             </span>
           </h1>
-          
+
           {/* Subtitle */}
           <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-in-delay">
-            Join our vibrant community of <span className="text-yellow-400 font-semibold">visionary writers</span> and 
-            <span className="text-pink-400 font-semibold"> curious readers</span>. Share your thoughts, discover new perspectives, and be part of something extraordinary.
+            Join our vibrant community of{" "}
+            <span className="text-yellow-400 font-semibold">
+              visionary writers
+            </span>{" "}
+            and
+            <span className="text-pink-400 font-semibold">
+              {" "}
+              curious readers
+            </span>
+            . Share your thoughts, discover new perspectives, and be part of
+            something extraordinary.
           </p>
-          
+
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16 animate-fade-in-delay-2">
             <Button
-              onClick={() => navigate('/blog')}
+              onClick={() => navigate("/blog")}
               className="group bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-lg px-10 py-4 rounded-2xl shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105 flex items-center gap-3"
             >
               <Search className="w-5 h-5 group-hover:rotate-12 transition-transform" />
@@ -149,7 +156,7 @@ export const PublicBlogListPage: React.FC = () => {
             </Button>
             {user ? (
               <Button
-                onClick={() => navigate('/dashboard')}
+                onClick={() => navigate("/dashboard")}
                 className="group bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 text-lg px-10 py-4 rounded-2xl transition-all duration-300 transform hover:scale-105 flex items-center gap-3"
               >
                 <PenTool className="w-5 h-5 group-hover:rotate-12 transition-transform" />
@@ -157,7 +164,7 @@ export const PublicBlogListPage: React.FC = () => {
               </Button>
             ) : (
               <Button
-                onClick={() => navigate('/register')}
+                onClick={() => navigate("/register")}
                 className="group bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 text-lg px-10 py-4 rounded-2xl transition-all duration-300 transform hover:scale-105 flex items-center gap-3"
               >
                 <Users className="w-5 h-5 group-hover:bounce transition-transform" />
@@ -165,22 +172,46 @@ export const PublicBlogListPage: React.FC = () => {
               </Button>
             )}
           </div>
-          
+
           {/* Floating stats preview */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
             {[
-              { number: formatNumber(stats.totalBlogs), label: 'Stories', icon: BookOpen, color: 'from-blue-400 to-cyan-400' },
-              { number: formatNumber(stats.totalAuthors), label: 'Authors', icon: Users, color: 'from-green-400 to-emerald-400' },
-              { number: formatNumber(stats.totalViews), label: 'Views', icon: Eye, color: 'from-yellow-400 to-orange-400' },
-              { number: formatNumber(stats.totalLikes), label: 'Likes', icon: Heart, color: 'from-pink-400 to-rose-400' }
+              {
+                number: formatNumber(stats.totalBlogs),
+                label: "Stories",
+                icon: BookOpen,
+                color: "from-blue-400 to-cyan-400",
+              },
+              {
+                number: formatNumber(stats.totalAuthors),
+                label: "Authors",
+                icon: Users,
+                color: "from-green-400 to-emerald-400",
+              },
+              {
+                number: formatNumber(stats.totalViews),
+                label: "Views",
+                icon: Eye,
+                color: "from-yellow-400 to-orange-400",
+              },
+              {
+                number: formatNumber(stats.totalLikes),
+                label: "Likes",
+                icon: Heart,
+                color: "from-pink-400 to-rose-400",
+              },
             ].map((stat, index) => (
               <div key={index} className="group">
                 <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-105">
-                  <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r ${stat.color} mb-4`}>
+                  <div
+                    className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r ${stat.color} mb-4`}
+                  >
                     <stat.icon className="w-6 h-6 text-white" />
                   </div>
                   <div className="text-3xl font-bold mb-2">{stat.number}</div>
-                  <div className="text-gray-300 text-sm font-medium">{stat.label}</div>
+                  <div className="text-gray-300 text-sm font-medium">
+                    {stat.label}
+                  </div>
                 </div>
               </div>
             ))}
@@ -198,22 +229,28 @@ export const PublicBlogListPage: React.FC = () => {
         <div className="absolute top-1/4 right-0 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl"></div>
         <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-purple-200/30 rounded-full blur-3xl"></div>
       </div>
-      
+
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-200 mb-6">
             <Star className="w-4 h-4 mr-2 text-purple-600" />
-            <span className="text-sm font-semibold text-purple-800">Featured Stories</span>
+            <span className="text-sm font-semibold text-purple-800">
+              Featured Stories
+            </span>
           </div>
           <h2 className="text-5xl font-bold text-gray-900 mb-6">
-            Hand-picked <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">Masterpieces</span>
+            Hand-picked{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
+              Masterpieces
+            </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Discover the most compelling stories from our talented community of writers
+            Discover the most compelling stories from our talented community of
+            writers
           </p>
         </div>
-        
+
         {/* Featured blogs grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {featuredBlogs.map((blog, index) => (
@@ -222,27 +259,35 @@ export const PublicBlogListPage: React.FC = () => {
                 {/* Card header with featured badge */}
                 <div className="relative p-8 pb-6">
                   <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
-                    <div className="text-white font-bold text-lg">#{index + 1}</div>
+                    <div className="text-white font-bold text-lg">
+                      #{index + 1}
+                    </div>
                   </div>
-                  
+
                   <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center bg-gradient-to-r from-purple-100 to-pink-100 px-3 py-1 rounded-full">
                       <Star className="w-4 h-4 mr-2 text-purple-600" />
-                      <span className="text-sm font-medium text-purple-800">Featured</span>
+                      <span className="text-sm font-medium text-purple-800">
+                        Featured
+                      </span>
                     </div>
                     <div className="flex items-center text-gray-500">
                       <TrendingUp className="w-4 h-4 mr-1" />
                       <span className="text-sm">Trending</span>
                     </div>
                   </div>
-                  
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4 cursor-pointer hover:text-purple-600 transition-colors group-hover:text-purple-600 line-clamp-2"
-                      onClick={() => handleViewBlog(blog)}>
+
+                  <h3
+                    className="text-2xl font-bold text-gray-900 mb-4 cursor-pointer hover:text-purple-600 transition-colors group-hover:text-purple-600 line-clamp-2"
+                    onClick={() => handleViewBlog(blog)}
+                  >
                     {blog.title}
                   </h3>
-                  
-                  <p className="text-gray-600 mb-6 line-clamp-3 leading-relaxed">{blog.excerpt}</p>
-                  
+
+                  <p className="text-gray-600 mb-6 line-clamp-3 leading-relaxed">
+                    {blog.excerpt}
+                  </p>
+
                   {/* Author and date */}
                   <div className="flex items-center justify-between text-sm text-gray-500 mb-6">
                     <div className="flex items-center">
@@ -256,17 +301,21 @@ export const PublicBlogListPage: React.FC = () => {
                       {formatDate(blog.publishedAt)}
                     </div>
                   </div>
-                  
+
                   {/* Stats and CTA */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
                       <div className="flex items-center text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
                         <Eye className="w-4 h-4 mr-1" />
-                        <span className="text-sm font-medium">{formatNumber(blog.views)}</span>
+                        <span className="text-sm font-medium">
+                          {formatNumber(blog.views)}
+                        </span>
                       </div>
                       <div className="flex items-center text-red-600 bg-red-50 px-3 py-1 rounded-full">
                         <Heart className="w-4 h-4 mr-1" />
-                        <span className="text-sm font-medium">{formatNumber(blog.likes)}</span>
+                        <span className="text-sm font-medium">
+                          {formatNumber(blog.likes)}
+                        </span>
                       </div>
                     </div>
                     <Button
@@ -293,44 +342,55 @@ export const PublicBlogListPage: React.FC = () => {
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-purple-600 to-pink-600"></div>
       </div>
-      
+
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold text-gray-900 mb-6">
-            Why Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">Our Platform?</span>
+            Why Choose{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
+              Our Platform?
+            </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Everything you need to share your ideas with the world, backed by powerful tools and an amazing community
+            Everything you need to share your ideas with the world, backed by
+            powerful tools and an amazing community
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {[
             {
               icon: PenTool,
               title: "Intuitive Writing",
-              description: "Advanced WordNest with live preview, syntax highlighting, and collaborative features",
+              description:
+                "Advanced WordNest with live preview, syntax highlighting, and collaborative features",
               color: "from-blue-500 to-cyan-500",
-              bgColor: "from-blue-50 to-cyan-50"
+              bgColor: "from-blue-50 to-cyan-50",
             },
             {
               icon: Globe,
               title: "Global Reach",
-              description: "Share your stories with readers worldwide through our SEO-optimized platform",
+              description:
+                "Share your stories with readers worldwide through our SEO-optimized platform",
               color: "from-purple-500 to-pink-500",
-              bgColor: "from-purple-50 to-pink-50"
+              bgColor: "from-purple-50 to-pink-50",
             },
             {
               icon: Users,
               title: "Thriving Community",
-              description: "Connect with like-minded writers, get feedback, and build your audience organically",
+              description:
+                "Connect with like-minded writers, get feedback, and build your audience organically",
               color: "from-green-500 to-emerald-500",
-              bgColor: "from-green-50 to-emerald-50"
-            }
+              bgColor: "from-green-50 to-emerald-50",
+            },
           ].map((feature, index) => (
             <div key={index} className="group relative">
-              <div className={`bg-gradient-to-br ${feature.bgColor} rounded-3xl p-8 h-full hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border border-gray-100`}>
-                <div className={`bg-gradient-to-r ${feature.color} rounded-2xl w-16 h-16 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+              <div
+                className={`bg-gradient-to-br ${feature.bgColor} rounded-3xl p-8 h-full hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border border-gray-100`}
+              >
+                <div
+                  className={`bg-gradient-to-r ${feature.color} rounded-2xl w-16 h-16 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}
+                >
                   <feature.icon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-purple-600 transition-colors">
@@ -354,12 +414,17 @@ export const PublicBlogListPage: React.FC = () => {
         <div className="flex flex-col md:flex-row items-center justify-between mb-16">
           <div className="text-center md:text-left mb-8 md:mb-0">
             <h2 className="text-5xl font-bold text-gray-900 mb-4">
-              Latest <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">Stories</span>
+              Latest{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
+                Stories
+              </span>
             </h2>
-            <p className="text-xl text-gray-600">Fresh content from our creative community</p>
+            <p className="text-xl text-gray-600">
+              Fresh content from our creative community
+            </p>
           </div>
           <Button
-            onClick={() => navigate('/blog')}
+            onClick={() => navigate("/blog")}
             className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-2xl text-lg font-medium transition-all duration-300 transform hover:scale-105 flex items-center gap-3 shadow-lg"
           >
             <Search className="w-5 h-5" />
@@ -367,18 +432,22 @@ export const PublicBlogListPage: React.FC = () => {
             <ArrowRight className="w-5 h-5" />
           </Button>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {recentBlogs.map((blog, index) => (
             <div key={blog._id} className="group relative">
               <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:scale-105 border border-gray-100">
                 {/* Card gradient top */}
-                <div className={`h-2 bg-gradient-to-r ${
-                  index % 3 === 0 ? 'from-blue-500 to-cyan-500' :
-                  index % 3 === 1 ? 'from-purple-500 to-pink-500' :
-                  'from-green-500 to-emerald-500'
-                }`}></div>
-                
+                <div
+                  className={`h-2 bg-gradient-to-r ${
+                    index % 3 === 0
+                      ? "from-blue-500 to-cyan-500"
+                      : index % 3 === 1
+                      ? "from-purple-500 to-pink-500"
+                      : "from-green-500 to-emerald-500"
+                  }`}
+                ></div>
+
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center text-gray-500">
@@ -389,34 +458,42 @@ export const PublicBlogListPage: React.FC = () => {
                       {formatDate(blog.publishedAt)}
                     </div>
                   </div>
-                  
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 cursor-pointer hover:text-purple-600 transition-colors group-hover:text-purple-600 line-clamp-2"
-                      onClick={() => handleViewBlog(blog)}>
+
+                  <h3
+                    className="text-xl font-bold text-gray-900 mb-3 cursor-pointer hover:text-purple-600 transition-colors group-hover:text-purple-600 line-clamp-2"
+                    onClick={() => handleViewBlog(blog)}
+                  >
                     {blog.title}
                   </h3>
-                  
+
                   <p className="text-gray-600 text-sm mb-4 line-clamp-3 leading-relaxed">
                     {blog.excerpt}
                   </p>
-                  
+
                   {/* Author */}
                   <div className="flex items-center mb-4">
                     <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-3">
                       <User className="w-4 h-4 text-white" />
                     </div>
-                    <span className="text-sm font-medium text-gray-700">{blog.userId.email}</span>
+                    <span className="text-sm font-medium text-gray-700">
+                      {blog.userId.email}
+                    </span>
                   </div>
-                  
+
                   {/* Stats and CTA */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <div className="flex items-center text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
                         <Eye className="w-3 h-3 mr-1" />
-                        <span className="text-xs font-medium">{formatNumber(blog.views)}</span>
+                        <span className="text-xs font-medium">
+                          {formatNumber(blog.views)}
+                        </span>
                       </div>
                       <div className="flex items-center text-red-600 bg-red-50 px-2 py-1 rounded-full">
                         <Heart className="w-3 h-3 mr-1" />
-                        <span className="text-xs font-medium">{formatNumber(blog.likes)}</span>
+                        <span className="text-xs font-medium">
+                          {formatNumber(blog.likes)}
+                        </span>
                       </div>
                     </div>
                     <Button
@@ -445,8 +522,9 @@ export const PublicBlogListPage: React.FC = () => {
         role: "Tech Blogger",
         avatar: "SJ",
         rating: 5,
-        review: "This platform has transformed how I share my tech insights. The WordNest is a game-changer, and the community engagement is phenomenal!",
-        bgGradient: "from-blue-500 to-cyan-500"
+        review:
+          "This platform has transformed how I share my tech insights. The WordNest is a game-changer, and the community engagement is phenomenal!",
+        bgGradient: "from-blue-500 to-cyan-500",
       },
       {
         id: 2,
@@ -454,8 +532,9 @@ export const PublicBlogListPage: React.FC = () => {
         role: "Travel Writer",
         avatar: "MC",
         rating: 5,
-        review: "As a travel writer, I needed a platform that could handle both text and media beautifully. This exceeds all my expectations. The global reach is incredible!",
-        bgGradient: "from-purple-500 to-pink-500"
+        review:
+          "As a travel writer, I needed a platform that could handle both text and media beautifully. This exceeds all my expectations. The global reach is incredible!",
+        bgGradient: "from-purple-500 to-pink-500",
       },
       {
         id: 3,
@@ -463,8 +542,9 @@ export const PublicBlogListPage: React.FC = () => {
         role: "Food Blogger",
         avatar: "ER",
         rating: 5,
-        review: "The engagement I get on my food blogs here is amazing. The platform's SEO features have helped me reach a much wider audience!",
-        bgGradient: "from-green-500 to-emerald-500"
+        review:
+          "The engagement I get on my food blogs here is amazing. The platform's SEO features have helped me reach a much wider audience!",
+        bgGradient: "from-green-500 to-emerald-500",
       },
       {
         id: 4,
@@ -472,8 +552,9 @@ export const PublicBlogListPage: React.FC = () => {
         role: "Fiction Writer",
         avatar: "DK",
         rating: 5,
-        review: "The writing experience is so smooth and distraction-free. I've published my entire short story series here with great success!",
-        bgGradient: "from-yellow-500 to-orange-500"
+        review:
+          "The writing experience is so smooth and distraction-free. I've published my entire short story series here with great success!",
+        bgGradient: "from-yellow-500 to-orange-500",
       },
       {
         id: 5,
@@ -481,9 +562,10 @@ export const PublicBlogListPage: React.FC = () => {
         role: "Lifestyle Blogger",
         avatar: "LT",
         rating: 5,
-        review: "The analytics features help me understand my audience better. Plus, the community here is so supportive and engaging!",
-        bgGradient: "from-red-500 to-pink-500"
-      }
+        review:
+          "The analytics features help me understand my audience better. Plus, the community here is so supportive and engaging!",
+        bgGradient: "from-red-500 to-pink-500",
+      },
     ];
 
     return (
@@ -499,13 +581,19 @@ export const PublicBlogListPage: React.FC = () => {
           <div className="text-center mb-16">
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-200 mb-6">
               <Star className="w-4 h-4 mr-2 text-purple-600" />
-              <span className="text-sm font-semibold text-purple-800">What Our Writers Say</span>
+              <span className="text-sm font-semibold text-purple-800">
+                What Our Writers Say
+              </span>
             </div>
             <h2 className="text-5xl font-bold text-gray-900 mb-6">
-              Loved by <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">Content Creators</span>
+              Loved by{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
+                Content Creators
+              </span>
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Join thousands of satisfied writers who have found their voice on our platform
+              Join thousands of satisfied writers who have found their voice on
+              our platform
             </p>
           </div>
 
@@ -526,11 +614,15 @@ export const PublicBlogListPage: React.FC = () => {
                   >
                     {/* Review header */}
                     <div className="flex items-center gap-4 mb-6">
-                      <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${review.bgGradient} flex items-center justify-center text-white font-bold text-lg`}>
+                      <div
+                        className={`w-12 h-12 rounded-full bg-gradient-to-r ${review.bgGradient} flex items-center justify-center text-white font-bold text-lg`}
+                      >
                         {review.avatar}
                       </div>
                       <div>
-                        <h4 className="text-lg font-semibold text-gray-900">{review.name}</h4>
+                        <h4 className="text-lg font-semibold text-gray-900">
+                          {review.name}
+                        </h4>
                         <p className="text-sm text-gray-600">{review.role}</p>
                       </div>
                     </div>
@@ -538,12 +630,17 @@ export const PublicBlogListPage: React.FC = () => {
                     {/* Rating */}
                     <div className="flex gap-1 mb-4">
                       {Array.from({ length: review.rating }).map((_, i) => (
-                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                        <Star
+                          key={i}
+                          className="w-5 h-5 text-yellow-400 fill-current"
+                        />
                       ))}
                     </div>
 
                     {/* Review content */}
-                    <p className="text-gray-600 leading-relaxed">{review.review}</p>
+                    <p className="text-gray-600 leading-relaxed">
+                      {review.review}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -562,28 +659,33 @@ export const PublicBlogListPage: React.FC = () => {
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
-      
+
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-8">
           <Sparkles className="w-4 h-4 mr-2 text-yellow-400" />
           <span className="text-sm font-medium">Join the Revolution</span>
         </div>
-        
+
         <h2 className="text-6xl font-bold mb-8 leading-tight text-white">
           Ready to Share Your
           <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-pink-400">
             Unique Story?
           </span>
         </h2>
-        
+
         <p className="text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
-          Join <span className="text-yellow-400 font-semibold">thousands of writers</span> who are already sharing their ideas and connecting with readers worldwide. Your voice matters.
+          Join{" "}
+          <span className="text-yellow-400 font-semibold">
+            thousands of writers
+          </span>{" "}
+          who are already sharing their ideas and connecting with readers
+          worldwide. Your voice matters.
         </p>
-        
+
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
           {user ? (
             <Button
-              onClick={() => navigate('/dashboard')}
+              onClick={() => navigate("/dashboard")}
               className="group bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white text-xl px-12 py-5 rounded-2xl shadow-2xl hover:shadow-yellow-500/25 transition-all duration-300 transform hover:scale-105 flex items-center gap-3"
             >
               <PenTool className="w-6 h-6 group-hover:rotate-12 transition-transform" />
@@ -593,7 +695,7 @@ export const PublicBlogListPage: React.FC = () => {
           ) : (
             <>
               <Button
-                onClick={() => navigate('/register')}
+                onClick={() => navigate("/register")}
                 className="group bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white text-xl px-12 py-5 rounded-2xl shadow-2xl hover:shadow-yellow-500/25 transition-all duration-300 transform hover:scale-105 flex items-center gap-3"
               >
                 <PenTool className="w-6 h-6 group-hover:rotate-12 transition-transform" />
@@ -601,7 +703,7 @@ export const PublicBlogListPage: React.FC = () => {
                 <Sparkles className="w-6 h-6 group-hover:bounce transition-transform" />
               </Button>
               <Button
-                onClick={() => navigate('/login')}
+                onClick={() => navigate("/login")}
                 className="group bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 text-xl px-12 py-5 rounded-2xl transition-all duration-300 transform hover:scale-105 flex items-center gap-3"
               >
                 <User className="w-6 h-6 group-hover:bounce transition-transform" />
@@ -615,59 +717,59 @@ export const PublicBlogListPage: React.FC = () => {
   );
 
   // Enhanced Footer Section
-const FooterSection = () => (
-  <footer className="bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 text-white">
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center space-y-6">
-      
-      {/* Name */}
-      <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
-        Shubhachand Patel
-      </h3>
-      
-      {/* Description */}
-      <p className="text-gray-300 text-base max-w-md mx-auto">
-        Building meaningful projects, exploring new technologies, and sharing knowledge through hands-on development.
-      </p>
-      
-      {/* Contact Info */}
-      <div className="flex justify-center items-center space-x-6 text-gray-300 mt-2">
-        <div className="flex items-center space-x-1">
-          <Phone className="w-4 h-4 text-purple-400" />
-          <span>+91 9827307502</span>
-        </div>
-        <div className="flex items-center space-x-1">
-          <MapPin className="w-4 h-4 text-purple-400" />
-          <span>India</span>
-        </div>
-      </div>
-      
-      {/* Social Links */}
-      <div className="flex justify-center space-x-4 mt-4">
-        <a
-          href="https://www.linkedin.com/in/your-linkedin"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-110 hover:text-blue-500"
-        >
-          <Linkedin className="w-5 h-5" />
-        </a>
-        <a
-          href="https://github.com/your-github"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-110 hover:text-gray-400"
-        >
-          <Github className="w-5 h-5" />
-        </a>
-      </div>
+  const FooterSection = () => (
+    <footer className="bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 text-white">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center space-y-6">
+        {/* Name */}
+        <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+          Shubhachand Patel
+        </h3>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-white/20 mt-8 pt-4 text-gray-300 text-sm">
-        &copy; 2025 Shubhachand Patel. All rights reserved.
+        {/* Description */}
+        <p className="text-gray-300 text-base max-w-md mx-auto">
+          Building meaningful projects, exploring new technologies, and sharing
+          knowledge through hands-on development.
+        </p>
+
+        {/* Contact Info */}
+        <div className="flex justify-center items-center space-x-6 text-gray-300 mt-2">
+          <div className="flex items-center space-x-1">
+            <Phone className="w-4 h-4 text-purple-400" />
+            <span>+91 9827307502</span>
+          </div>
+          <div className="flex items-center space-x-1">
+            <MapPin className="w-4 h-4 text-purple-400" />
+            <span>India</span>
+          </div>
+        </div>
+
+        {/* Social Links */}
+        <div className="flex justify-center space-x-4 mt-4">
+          <a
+            href="https://www.linkedin.com/in/your-linkedin"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-110 hover:text-blue-500"
+          >
+            <Linkedin className="w-5 h-5" />
+          </a>
+          <a
+            href="https://github.com/your-github"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-110 hover:text-gray-400"
+          >
+            <Github className="w-5 h-5" />
+          </a>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-white/20 mt-8 pt-4 text-gray-300 text-sm">
+          &copy; 2025 Shubhachand Patel. All rights reserved.
+        </div>
       </div>
-    </div>
-  </footer>
-);
+    </footer>
+  );
 
   // Enhanced Loading State
   if (loading) {
@@ -690,12 +792,15 @@ const FooterSection = () => (
                 </div>
               </div>
             </div>
-            
+
             {/* Content skeleton */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                 {Array.from({ length: 3 }).map((_, index) => (
-                  <div key={index} className="bg-white rounded-2xl shadow-lg p-8">
+                  <div
+                    key={index}
+                    className="bg-white rounded-2xl shadow-lg p-8"
+                  >
                     <div className="h-6 bg-gray-200 rounded mb-4"></div>
                     <div className="h-4 bg-gray-200 rounded mb-2"></div>
                     <div className="h-4 bg-gray-200 rounded mb-6"></div>
@@ -703,10 +808,13 @@ const FooterSection = () => (
                   </div>
                 ))}
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {Array.from({ length: 6 }).map((_, index) => (
-                  <div key={index} className="bg-white rounded-2xl shadow-lg p-6">
+                  <div
+                    key={index}
+                    className="bg-white rounded-2xl shadow-lg p-6"
+                  >
                     <div className="h-4 bg-gray-200 rounded mb-3"></div>
                     <div className="h-6 bg-gray-200 rounded mb-4"></div>
                     <div className="h-16 bg-gray-200 rounded mb-4"></div>
@@ -735,9 +843,11 @@ const FooterSection = () => (
               <div className="bg-gradient-to-r from-red-500 to-pink-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8">
                 <FileText className="w-10 h-10 text-white" />
               </div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Oops! Something went wrong</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                Oops! Something went wrong
+              </h2>
               <p className="text-gray-600 mb-8 text-lg">{error}</p>
-              <Button 
+              <Button
                 onClick={loadHomePageData}
                 className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white px-8 py-4 rounded-2xl text-lg font-medium transition-all duration-300 transform hover:scale-105"
               >
@@ -753,7 +863,7 @@ const FooterSection = () => (
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar onLogout={handleLogout} />
-      
+
       <div className="pt-16">
         <HeroSection />
         <FeaturedBlogsSection />
@@ -763,10 +873,11 @@ const FooterSection = () => (
         <CallToActionSection />
         <FooterSection />
       </div>
-      
+
       {/* Custom CSS for animations */}
-      <style dangerouslySetInnerHTML={{
-        __html: `
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
           @keyframes fade-in {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -817,8 +928,9 @@ const FooterSection = () => (
           .animate-scroll {
             animation: scroll 40s linear infinite;
           }
-        `
-      }} />
+        `,
+        }}
+      />
     </div>
   );
-}; 
+};
