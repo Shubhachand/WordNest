@@ -309,7 +309,7 @@ export const PublicBlogListPage: React.FC = () => {
             {
               icon: PenTool,
               title: "Intuitive Writing",
-              description: "Advanced BlogSpace with live preview, syntax highlighting, and collaborative features",
+              description: "Advanced WordNest with live preview, syntax highlighting, and collaborative features",
               color: "from-blue-500 to-cyan-500",
               bgColor: "from-blue-50 to-cyan-50"
             },
@@ -445,7 +445,7 @@ export const PublicBlogListPage: React.FC = () => {
         role: "Tech Blogger",
         avatar: "SJ",
         rating: 5,
-        review: "This platform has transformed how I share my tech insights. The BlogSpace is a game-changer, and the community engagement is phenomenal!",
+        review: "This platform has transformed how I share my tech insights. The WordNest is a game-changer, and the community engagement is phenomenal!",
         bgGradient: "from-blue-500 to-cyan-500"
       },
       {
