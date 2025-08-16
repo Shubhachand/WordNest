@@ -1,6 +1,6 @@
-# React BlogSpace
+# React WordNest
 
-A full-stack React application with a BlogSpace, featuring JWT authentication and MongoDB integration.
+A full-stack React application with a WordNest, featuring JWT authentication and MongoDB integration.
 
 ## Project Structure
 
